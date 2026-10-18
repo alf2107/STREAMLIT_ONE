@@ -154,7 +154,7 @@ col1, col2, col4 = st.columns(3, gap='large')
 
 with col1:
     st.subheader('Python с нуля', text_alignment="center")
-    st.image('python_logo.jpg', width=310, caption='Python')
+    st.image('python_logo.jpg', width=320, caption='Python')
     st.text("""Вы познакомитесь с основами языка Python, \
 научитесь самостоятельно писать программный код для своего первого приложения, \
 изучите дополнительные библиотеки NumPy (математические функции и работа с массивами), \
@@ -173,7 +173,7 @@ Pandas (работа с таблицами данных), изучите осн�
 
 with col2:
     st.subheader('Excel с нуля', text_alignment="center")
-    st.image('excel_logo_2.png', width=310, caption='Excel')
+    st.image('excel_logo_2.png', width=320, caption='Excel')
     st.text("""Вы познакомитесь с основами Excel, \
 научитесь создавать и грамотно структурировать рабочие книги и листы, \
 работать с формулами и функциями, форматировать данные и строить наглядные диаграммы и графики, \
@@ -191,7 +191,7 @@ with col2:
 
 with col4:
     st.subheader('ОГЭ по информатике', text_alignment="center")
-    st.image('OGE_inf_logo_3.png', width=310, caption='ОГЭ')
+    st.image('OGE_inf_logo_3.png', width=320, caption='ОГЭ')
     st.text("""Вы подготовитесь к экзамену по информатике, научитесь решать задачи, похожие на те, что будут на экзамене, \
         научитесь решать все типы экзаменационных задач с учётом актуальных требований ФИПИ.""",
             text_alignment="justify")

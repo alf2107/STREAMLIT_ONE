@@ -1,3 +1,1 @@
-git+https://github.com/alf2107/STREAMLIT_ONE.git@cad6f93dccde7a56367e258c63f5869ca2b4205c
-
 streamlit_phone_number>=0.0.9

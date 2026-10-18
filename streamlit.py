@@ -154,7 +154,7 @@ col1, col2, col4 = st.columns(3, gap='large')
 
 with col1:
     st.subheader('Python с нуля', text_alignment="center")
-    st.image('python_logo.jpg', width=400, caption='Python')
+    st.image('python_logo.jpg', width=300, caption='Python')
     st.text("""Вы познакомитесь с основами языка Python, \
 научитесь самостоятельно писать программный код для своего первого приложения, \
 изучите дополнительные библиотеки NumPy (математические функции и работа с массивами), \

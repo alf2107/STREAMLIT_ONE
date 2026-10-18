@@ -102,7 +102,7 @@ def page_index(name_edu):
                 sql = 'INSERT INTO Education (Name, Tel, e_mail, course, time_course) VALUES(?,?,?,?,?)'
                 cursor.execute(sql, (str(name_student), str(tel), str(email), str(name_edu), str(time_course)))
                 st.write(f"Вы записаны на курс {name_edu}. Время занятий - {time_course}")
-    file_path = "dogovor/dogovor.docx"
+    file_path = "dogovor.docx"
     if os.path.exists(file_path):
         with open(file_path, "rb") as f:
             st.download_button(

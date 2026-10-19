@@ -1,1 +1,2 @@
 streamlit_phone_number>=0.0.9
+sqlalchemy

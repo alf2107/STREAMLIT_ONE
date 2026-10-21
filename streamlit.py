@@ -231,8 +231,9 @@ def additional_course(name_edu):
 st.title("Добро пожаловать!", text_alignment="center")
 st.header("Вы попали на страницу, где можете выбрать подходящий для себя или своего ребенка курс по IT-направлению.", text_alignment="center")
 st.header('''Мы находимся по адресу: пгт.Морки ул.Механизаторов, д.10В (в здании магазина "ФАНТ", 2 этаж)''', text_alignment="center")
-st.subheader("Для учебы Вам понадобится личный ноутбук и желание.", text_alignment="center")
-st.subheader("Стоимость 1 занятия (45 минут) составляет 500 рублей. Количество занятий в неделю - 1. Обучение по договору. Начало обучения с 9 ноября 2026 года.", text_alignment="center")
+st.subheader("Для учебы Вам понадобится личный ноутбук (для Python и Excel) и желание.", text_alignment="center")
+st.subheader("Стоимость 1 занятия (45 минут) составляет 500 рублей. Количество занятий в неделю - 1.", text_alignment="center")
+st.markdown(" ## Начало обучения с 9 ноября 2026 года. Обучение по договору.", text_alignment="center", unsafe_allow_html=True)
 st.set_page_config(layout="wide")
 col4, col3, col2, col1 = st.columns(4, gap='large')
 

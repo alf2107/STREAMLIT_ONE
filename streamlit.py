@@ -8,7 +8,7 @@ conn = st.connection(
     'supabase',
     type = SupabaseConnection
 )
-
+# функция проверки записи на курс
 @st.dialog(" ")
 def verify_course():
     st.write("Введите свои данные, чтобы отказаться от курса обучения")
@@ -30,19 +30,95 @@ def verify_course():
 
 # Подсчет количества записей в базе данных по каждому курсу
 def count_place(name):
-    global VAKANCY
-    free_place = conn.table('education').select('*', count="exact").eq('course', name).execute()
-    number_int = int(free_place.count)
-    if free_place.count == 0 or free_place.count == None:
-        st.subheader(f"Свободных мест осталось 5 из 5",  text_alignment="center")
-        VAKANCY = False
-    elif free_place.count == 5:
-        st.subheader(f"Набор на курс закрыт.", text_alignment="center")
-        VAKANCY = True
-    else:
-        st.subheader(f"Свободных мест осталось {5 - (number_int)} из 5", text_alignment="center")
-        VAKANCY = False
-    return number_int, VAKANCY
+    global VAKANCY, VAKANCY_10, VAKANCY_11, VAKANCY_12, VAKANCY_13
+
+    if name == 'Python':
+        free_place = conn.table('education').select('*', count="exact").eq('course', name).execute()
+        number_int = int(free_place.count)
+        if free_place.count == 0 or free_place.count == None:
+            st.markdown(f" ##### Свободных мест осталось:", text_alignment="center")
+            st.markdown(f" ##### Пт 16:00 - 8 из 8", text_alignment="center")
+            VAKANCY = False
+        elif free_place.count == 8:
+            st.markdown(f" ##### Набор на курс закрыт.", text_alignment="center")
+            VAKANCY = True
+        else:
+            st.markdown(f" ##### Свободных мест осталось:", text_alignment="center")
+            st.markdown(f" ##### Пт 16:00 - {8 - (number_int)} из 8", text_alignment="center")
+            VAKANCY = False
+        return number_int, VAKANCY
+
+    if name == 'Excel':
+        free_place = conn.table('education').select('*', count="exact").eq('course', name).execute()
+        number_int = int(free_place.count)
+        if free_place.count == 0 or free_place.count == None:
+            st.markdown(f" ##### Свободных мест осталось:",  text_alignment="center")
+            st.markdown(f" ##### Пт 15:00 - 8 из 8", text_alignment="center")
+            VAKANCY = False
+        elif free_place.count == 8:
+            st.markdown(f" ##### Набор на курс закрыт.", text_alignment="center")
+            VAKANCY = True
+        else:
+            st.markdown(f" ##### Свободных мест осталось:", text_alignment="center")
+            st.markdown(f" ##### Пт 15:00 - {8 - (number_int)} из 8", text_alignment="center")
+            VAKANCY = False
+        return number_int, VAKANCY
+
+    if name == 'ЕГЭ по информатике':
+        free_place_12 = conn.table('education').select('*', count="exact").eq('course', name).eq('time_course', "Сб 12:00").execute()
+        number_int_12 = int(free_place_12.count)
+        free_place_13 = conn.table('education').select('*', count="exact").eq('course', name).eq('time_course', "Сб 13:00").execute()
+        number_int_13 = int(free_place_13.count)
+        if free_place_12.count == 0 or free_place_12.count == None:
+            st.markdown(f" ##### Свободных мест осталось:",  text_alignment="center")
+            st.markdown(f" ##### Сб 12:00 - 8 из 8", text_alignment="center")
+            VAKANCY_12 = False
+        elif free_place_12.count == 8:
+            st.markdown(f" ##### Набор на курс (Сб 12:00) закрыт.", text_alignment="center")
+            VAKANCY_12 = True
+        else:
+            st.markdown(f" ##### Свободных мест осталось:", text_alignment="center")
+            st.markdown(f" ##### Сб 12:00 - {8 - (number_int_12)} из 8", text_alignment="center")
+            VAKANCY_12 = False
+
+        if free_place_13.count == 0 or free_place_13.count == None:
+            st.markdown(f" ##### Сб 13:00 - 8 из 8", text_alignment="center")
+            VAKANCY_13 = False
+        elif free_place_13.count == 8:
+            st.markdown(f" ##### Набор на курс (Сб 13:00) закрыт.", text_alignment="center")
+            VAKANCY_13 = True
+        else:
+            st.markdown(f" ##### Сб 13:00 - {8 - (number_int_13)} из 8", text_alignment="center")
+            VAKANCY_13 = False
+        return number_int_12, number_int_13, VAKANCY_12, VAKANCY_13
+
+    if name == 'ОГЭ по информатике':
+        free_place_10 = conn.table('education').select('*', count="exact").eq('course', name).eq('time_course', "Сб 10:00").execute()
+        number_int_10 = int(free_place_10.count)
+        free_place_11 = conn.table('education').select('*', count="exact").eq('course', name).eq('time_course', "Сб 11:00").execute()
+        number_int_11 = int(free_place_11.count)
+        if free_place_10.count == 0 or free_place_10.count == None:
+            st.markdown(f" ##### Свободных мест осталось:",  text_alignment="center")
+            st.markdown(f" ##### Сб 10:00 - 8 из 8", text_alignment="center")
+            VAKANCY_10 = False
+        elif free_place_10.count == 8:
+            st.markdown(f" ##### Набор на курс (Сб 10:00) закрыт.", text_alignment="center")
+            VAKANCY_10 = True
+        else:
+            st.markdown(f" ##### Свободных мест осталось:", text_alignment="center")
+            st.markdown(f" ##### Сб 10:00 - {8 - (number_int_10)} из 8", text_alignment="center")
+            VAKANCY_10 = False
+
+        if free_place_11.count == 0 or free_place_11.count == None:
+            st.markdown(f" ##### Сб 11:00 - 8 из 8", text_alignment="center")
+            VAKANCY_11 = False
+        elif free_place_11.count == 8:
+            st.markdown(f" ##### Набор на курс (Сб 11:00) закрыт.", text_alignment="center")
+            VAKANCY_11 = True
+        else:
+            st.markdown(f" ##### Сб 11:00 - {8 - (number_int_11)} из 8", text_alignment="center")
+            VAKANCY_11 = False
+        return number_int_10, number_int_11, VAKANCY_10, VAKANCY_11
 
 # запись на курсы основной группы
 @st.dialog(" ")
@@ -50,22 +126,45 @@ def page_index(name_edu):
     st.write("Введите свои данные, чтобы записаться на " + name_edu)
     st.dialog(title='Записаться на ' + name_edu, width="large", dismissible=True, icon=None, on_dismiss="on_dismiss")
     name_student = st.text_input("Введите ФИО обучаемого", placeholder="Введите ФИО обучаемого")
-    email = st.text_input('Введите адрес электронной почты:')
     if name_edu == 'Python':
         time_course = st.selectbox(
-            "Выберите удобное для Вас время обучения:",
-            ("Сб 10:00", "Сб 11:00"),
+            "Время проведения занятия:",
+            ("Пт 16:00",),
         )
     elif name_edu == 'Excel':
         time_course = st.selectbox(
-            "Выберите удобное для Вас время обучения:",
-            ("Пт 15:00", "Пт 16:00"),
+            "Время проведения занятия:",
+            ("Пт 15:00",),
         )
     elif name_edu == 'ОГЭ по информатике':
-        time_course = st.selectbox(
-            "Выберите удобное для Вас время обучения:",
-            ("Сб 12:00", "Сб 13:00"),
+        if VAKANCY_10:
+            time_course = st.selectbox(
+                "Время проведения занятия:",
+                ("Сб 11:00",),)
+        elif VAKANCY_11:
+            time_course = st.selectbox(
+                "Время проведения занятия:",
+                ("Сб 10:00",),)
+        else:
+            time_course = st.selectbox(
+                "Выберите удобное для Вас время обучения:",
+                ("Сб 10:00", "Сб 11:00"),
         )
+    elif name_edu == 'ЕГЭ по информатике':
+        if VAKANCY_12:
+            time_course = st.selectbox(
+                "Время проведения занятия:",
+                ("Сб 13:00",),)
+        elif VAKANCY_13:
+            time_course = st.selectbox(
+                "Время проведения занятия:",
+                ("Сб 12:00",),)
+        else:
+            time_course = st.selectbox(
+                "Выберите удобное для Вас время обучения:",
+                ("Сб 12:00", "Сб 13:00"),
+            )
+
     tel = st_phone_number("Введите номер телефона: ", placeholder="+7(999)-999-99-99", default_country="RU")
     if st.button(label='Отправить', width='content', key='send'):
         if tel == None:
@@ -76,7 +175,6 @@ def page_index(name_edu):
             new_row = {
                     "name": name_student,
                     "tel": tel,
-                    "e_mail": email,
                     "course": name_edu,
                     "time_course": time_course
                 }
@@ -98,28 +196,31 @@ def additional_course(name_edu):
     st.write("Введите свои данные, чтобы записаться на дополнительный курс " + name_edu)
     st.dialog(title='Записаться на ' + name_edu, width="large", dismissible=True, icon=None, on_dismiss="on_dismiss")
     name_student = st.text_input("Введите ФИО обучаемого", placeholder="Введите ФИО обучаемого")
-    email = st.text_input('Введите адрес электронной почты:')
     if name_edu == 'Python':
         time_course = st.selectbox(
             "Время проведения дополнительного курса:",
-            ("Пн 09:00",),
+            ("Пн 16:00",),
         )
     elif name_edu == 'Excel':
         time_course = st.selectbox(
             "Время проведения дополнительного курса:",
-            ("Пн 10:00",),
+            ("Пн 17:00",),
         )
     elif name_edu == 'ОГЭ по информатике':
         time_course = st.selectbox(
             "Время проведения дополнительного курса:",
-            ("Пн 11:00",),
+            ("Пн 14:00",),
+        )
+    elif name_edu == 'ЕГЭ по информатике':
+        time_course = st.selectbox(
+            "Время проведения дополнительного курса:",
+            ("Пн 15:00",),
         )
     tel = st_phone_number("Введите номер телефона: ", placeholder="+7(999)-999-99-99", default_country="RU")
     if st.button(label='Отправить', width='content', key='send_add'):
         new_row = {
             "name": name_student,
             "tel": tel,
-            "e_mail": email,
             "course": name_edu,
             "time_course": time_course
         }
@@ -129,11 +230,11 @@ def additional_course(name_edu):
 
 st.title("Добро пожаловать!", text_alignment="center")
 st.header("Вы попали на страницу, где можете выбрать подходящий для себя или своего ребенка курс по IT-направлению.", text_alignment="center")
-st.header("Мы находимся по адресу: пгт.Морки ул.Механизаторов, д.10В (в здании магазина 'ФАНТ', 2 этаж)", text_alignment="center")
+st.header('''Мы находимся по адресу: пгт.Морки ул.Механизаторов, д.10В (в здании магазина "ФАНТ", 2 этаж)''', text_alignment="center")
 st.subheader("Для учебы Вам понадобится личный ноутбук и желание.", text_alignment="center")
 st.subheader("Стоимость 1 занятия (45 минут) составляет 500 рублей. Количество занятий в неделю - 1. Обучение по договору.", text_alignment="center")
 st.set_page_config(layout="wide")
-col1, col2, col4 = st.columns(3, gap='large')
+col4, col3, col2, col1 = st.columns(4, gap='large')
 
 with col1:
     st.subheader('Python с нуля', text_alignment="center")
@@ -141,7 +242,7 @@ with col1:
     st.text("""Вы познакомитесь с основами языка Python, \
 научитесь самостоятельно писать программный код для своего первого приложения, \
 изучите дополнительные библиотеки NumPy (математические функции и работа с массивами), \
-Pandas (работа с таблицами данных), изучите основы анализа данных и построите свою первую\
+Pandas (работа с таблицами данных), изучите основы анализа данных и построите свою первую \
 модель машинного обучения для предсказания результатов, а также сможете создать такой же сайт, \
 на котором Вы сейчас находитесь.""", text_alignment="justify")
     count_p = count_place("Python")
@@ -171,18 +272,33 @@ with col2:
         btn_2 = st.button('Записаться', width=600, key='Excel')
         if btn_2:
             page_index(name_edu='Excel')
+with col3:
+    st.subheader('ЕГЭ по информатике', text_alignment="center")
+    st.image('EGE_inform.jpg', width=320, caption='ЕГЭ')
+    st.text("""Вы подготовитесь к экзамену по информатике (ЕГЭ), научитесь решать задачи, похожие на те, что будут на экзамене,\
+        научитесь решать все типы экзаменационных задач с учётом актуальных требований ФИПИ.""", text_alignment="justify")
+    st.space("stretch")
+    count_ege = count_place('ЕГЭ по информатике')
+    if VAKANCY_12 and VAKANCY_13:
+        btn_new_course_3 = st.button('Подать заявку на дополнительную группу', width=600, key='new_course_3')
+        if btn_new_course_3:
+            additional_course(name_edu='ЕГЭ по информатике')
+    else:
+        btn_3 = st.button('Записаться', width=600, key='EGE')
+        if btn_3:
+            page_index(name_edu='ЕГЭ по информатике')
 
 with col4:
     st.subheader('ОГЭ по информатике', text_alignment="center")
     st.image('OGE_inf_logo_3.png', width=320, caption='ОГЭ')
-    st.text("""Вы подготовитесь к экзамену по информатике, научитесь решать задачи, похожие на те, что будут на экзамене, \
+    st.text("""Вы подготовитесь к экзамену по информатике (ОГЭ), научитесь решать задачи, похожие на те, что будут на экзамене,\
         научитесь решать все типы экзаменационных задач с учётом актуальных требований ФИПИ.""",
             text_alignment="justify")
     st.space("stretch")
     count_o = count_place('ОГЭ по информатике')
-    if VAKANCY:
-        btn_new_course_3 = st.button('Подать заявку на дополнительную группу', width=600, key='new_course_3')
-        if btn_new_course_3:
+    if VAKANCY_10 and VAKANCY_11:
+        btn_new_course_4 = st.button('Подать заявку на дополнительную группу', width=600, key='new_course_4')
+        if btn_new_course_4:
             additional_course(name_edu='ОГЭ по информатике')
     else:
         btn_4 = st.button('Записаться', width=600, key='OGE')
@@ -194,4 +310,4 @@ verify_courses = st.button(label='Проверить свою запись на 
 if verify_courses:
     verify_course()
 
-st.write("Телефон для связи: +7-922-282-96-15")
+st.write("Телефон для связи: +7-987-722-13-23")
